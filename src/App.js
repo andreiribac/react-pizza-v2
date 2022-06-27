@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { Header, Categories, SortPopup, PizzaBlock } from './components';
+import './scss/app.scss';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className="wrapper">
+			<Header />
+			<div className="content">
+				<div className="container">
+					<div className="content__top">
+						<Categories />
+						<SortPopup />
+						{/* TODO lesson 2  52.40*/}
+					</div>
+					<h2 className="content__title">Все пиццы</h2>
+					<div className="content__items">
+						<PizzaBlock />
+						<PizzaBlock />
+						<PizzaBlock />
+						<PizzaBlock />
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default App;
