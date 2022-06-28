@@ -26,10 +26,10 @@ body {
   }
 
   &__items {
-    display: flex;
-    flex-wrap: wrap;
-    // justify-content: space-between;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 280px);
+    justify-content: center;
+    gap: 60px 40px;
   }
 
   &__top {
