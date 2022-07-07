@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function PizzaBlock({ title, price, imgUrl, sizes, types }) {
+function PizzaBlock({ title, price, imageUrl, sizes, types }) {
 	const typeNames = ['тонкое', 'традиционное'];
 	const [activeType, setActiveType] = useState(0);
 	const [activeSize, setActiveSize] = useState(0);
@@ -14,7 +14,7 @@ function PizzaBlock({ title, price, imgUrl, sizes, types }) {
 		<div className="pizza-block">
 			<img
 				className="pizza-block__image"
-				src={imgUrl}
+				src={imageUrl}
 				alt="Pizza"
 			/>
 			<h4 className="pizza-block__title">{title}</h4>
@@ -25,7 +25,7 @@ function PizzaBlock({ title, price, imgUrl, sizes, types }) {
 							return (
 								<li
 									key={index + item}
-									onClick={() => { }}
+									onClick={() => setActiveType(item)}
 									className={activeType === index? "active" : ''}
 								>
 									{typeNames[item]}
@@ -41,7 +41,7 @@ function PizzaBlock({ title, price, imgUrl, sizes, types }) {
 							return (
 								<li
 									key={index + item}
-									onClick={() => { }}
+									onClick={() => setActiveSize(index)}
 									className={activeSize === index ? "active" : ''}
 								>
 									{item} см.

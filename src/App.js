@@ -13,7 +13,7 @@ function App() {
 					<div className="content__top">
 						<Categories />
 						<SortPopup />
-						{/* TODO lesson 2  52.40*/}
+						{/* TODO #6 go to start lesson */}
 					</div>
 					<h2 className="content__title">Все пиццы</h2>
 					<div className="content__items">
@@ -21,12 +21,14 @@ function App() {
 							pizzas.map(item => {
 								return (
 									<PizzaBlock
-										key={item.id} t
-										title={item.title}
-										price={item.price}
-										imgUrl={item.imageUrl}
-										sizes={item.sizes}
-										types={item.types}
+										key={item.id}
+										// title={item.title}
+										// price={item.price}
+										// imageUrl={item.imageUrl}
+										// sizes={item.sizes}
+										// types={item.types}
+										// "Это все можно заменить на коротку запись если названия совпадают"
+										{...item}
 									/>
 								)
 							})
