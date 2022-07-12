@@ -9,6 +9,10 @@ body {
   background-color: $background;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .wrapper {
   width: calc(100vw - 100px);
   height: 100%;
