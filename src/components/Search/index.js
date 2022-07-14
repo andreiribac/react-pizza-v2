@@ -1,11 +1,26 @@
 import React from 'react';
 import styles from './Search.module.scss';
+import { IconSvgSelector } from '../../assets/icons/IconsSvgSelector';
 
-function Search() {
+function Search({ searchValue, setSearchValue }) {
 	return (
 		<label className={styles.inputArea}>
 			{/* TODO #10 4.38 */}
-			<input className={styles.inputArea__input} type="text" placeholder='Поиск пиццы ...' />
+			<IconSvgSelector id='search' className={styles.inputArea__icon} />
+			<input
+				value={searchValue}
+				onChange={(e) => { setSearchValue(e.target.value) }}
+				className={styles.inputArea__input}
+				type="text"
+				placeholder='Поиск пиццы ...'
+			/>
+			{searchValue &&
+				<IconSvgSelector
+				id='close'
+				onClick={() => { setSearchValue('') }}
+					className={styles.inputArea__iconClose}
+				/>
+			}
 		</label>
 	)
 }

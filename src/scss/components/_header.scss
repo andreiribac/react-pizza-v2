@@ -8,6 +8,10 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		flex-wrap: wrap;
+		& > * {
+			margin-bottom: 10px;
+		}
 	}
 
 	&__logo {
@@ -20,27 +24,22 @@
 
 		h1 {
 			display: none;
-      visibility: hidden;
+			visibility: hidden;
 		}
 
 		p {
 			display: none;
 			visibility: hidden;
 		}
-		@media screen and (min-width: 390px) {
+		@media screen and (min-width: 420px) {
 			h1 {
-        display: block;
-        visibility: visible;
+				display: block;
+				visibility: visible;
 				color: #181818;
 				font-size: 18px;
 				letter-spacing: 1%;
 				text-transform: uppercase;
 				font-weight: 800;
-			}
-		}
-		@media screen and (min-width: 420px) {
-			h1 {
-				font-size: 24px;
 			}
 		}
 		@media screen and (min-width: 560px) {
@@ -49,6 +48,12 @@
 				visibility: visible;
 				color: #7b7b7b;
 			}
+		}
+	}
+	&__cart {
+		margin-left: auto;
+		@media screen and (min-width: 800px) {
+			margin-left: 0;
 		}
 	}
 }
