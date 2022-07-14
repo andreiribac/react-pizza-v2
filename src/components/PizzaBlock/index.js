@@ -33,7 +33,6 @@ function PizzaBlock({ title, price, imageUrl, sizes, types }) {
 							)
 						})
 					}
-					{/* TODO lesson 3 - 59.29 */}
 				</ul>
 				<ul>
 					{

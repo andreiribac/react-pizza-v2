@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './Search.module.scss';
 import { IconSvgSelector } from '../../assets/icons/IconsSvgSelector';
+import { SearchContext } from '../../App';
 
-function Search({ searchValue, setSearchValue }) {
+function Search() {
+
+	const { searchValue, setSearchValue } = useContext(SearchContext);
+
 	return (
 		<label className={styles.inputArea}>
-			{/* TODO #10 4.38 */}
+			{/* TODO #12  */}
 			<IconSvgSelector id='search' className={styles.inputArea__icon} />
 			<input
 				value={searchValue}

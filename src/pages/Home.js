@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 
 import { Categories, SortPopup, Skeleton, PizzaBlock, Pagination } from '../components';
+import { SearchContext } from '../App';
 
 
-function Home({ searchValue }) {
+function Home() {
+	const { searchValue } = useContext(SearchContext);
 	const [items, setItems] = useState([]);
 	const [isLoadind, setIsLoadind] = useState(true);
 	const [categoryId, setCategoryId] = useState(0);
@@ -53,13 +55,12 @@ function Home({ searchValue }) {
 				<SortPopup value={sortType} onChangeSort={(index) => setSortType(index)} />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
-			<Pagination onChangePage={number => setCurrentPage(number)} />
 			<div className="content__items">
 				{
 					isLoadind ? skeletons : pizzas
 				}
 			</div>
-			
+			<Pagination onChangePage={number => setCurrentPage(number)} />
 		</div>
 	)
 }
