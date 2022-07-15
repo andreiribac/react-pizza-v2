@@ -9,7 +9,6 @@ function Search() {
 
 	return (
 		<label className={styles.inputArea}>
-			{/* TODO #12  */}
 			<IconSvgSelector id='search' className={styles.inputArea__icon} />
 			<input
 				value={searchValue}

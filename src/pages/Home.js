@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-
+import { setCategoryId } from '../redux/slices/filterSlice';
 import { Categories, SortPopup, Skeleton, PizzaBlock, Pagination } from '../components';
 import { SearchContext } from '../App';
 
 
 function Home() {
+	const dispatch = useDispatch();
+	const {categoryId, sort} = useSelector(state => state.filter);
+
 	const { searchValue } = useContext(SearchContext);
 	const [items, setItems] = useState([]);
 	const [isLoadind, setIsLoadind] = useState(true);
-	const [categoryId, setCategoryId] = useState(0);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [sortType, setSortType] = useState({ name: 'популярности', sortProperty: 'rating' });
+	// const [sortType, setSortType] = useState({ name: 'популярности', sortProperty: 'rating' });
 
 	const skeletons = ([... new Array(10)].map((_, index) => <Skeleton key={index} />));
 	const pizzas = items.map(item => {
@@ -29,12 +32,16 @@ function Home() {
 		)
 	});
 
+	const onChangeCategory = (id) => {
+		dispatch(setCategoryId(id));
+	}
+
 	useEffect(() => {
 		setIsLoadind(true);
 
 		const category = categoryId > 0 ? `category=${categoryId}` : '';
-		const sortBy = sortType.sortProperty.replace('-', '');
-		const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
+		const sortBy = sort.sortProperty.replace('-', '');
+		const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
 		const search = searchValue ? `&search=${searchValue}` : '';
 
 		fetch(
@@ -46,13 +53,13 @@ function Home() {
 				setIsLoadind(false);
 			});
 		window.scrollTo(0, 0);
-	}, [categoryId, sortType, searchValue, currentPage]);
+	}, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
 	return (
 		<div className="container">
 			<div className="content__top">
-				<Categories value={categoryId} onChangeCategory={(index) => setCategoryId(index)} />
-				<SortPopup value={sortType} onChangeSort={(index) => setSortType(index)} />
+				<Categories value={categoryId} onChangeCategory={onChangeCategory} />
+				<SortPopup  />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			<div className="content__items">

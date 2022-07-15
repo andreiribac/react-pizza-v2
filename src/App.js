@@ -1,5 +1,7 @@
 import React, { useState, createContext } from 'react';
 import { Routes, Route, } from "react-router-dom";
+
+
 import { Header } from './components';
 import { Home, NotFound, Cart } from './pages';
 import './scss/app.scss';
@@ -9,6 +11,7 @@ import './scss/app.scss';
 export const SearchContext = createContext();
 
 function App() {
+	
 
 	const [searchValue, setSearchValue] = useState('');
 
