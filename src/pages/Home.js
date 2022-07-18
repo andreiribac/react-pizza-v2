@@ -1,15 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, } from "react-router-dom";
 import axios from 'axios';
+import qs from 'qs';
 
-import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { Categories, SortPopup, Skeleton, PizzaBlock, Pagination } from '../components';
 import { SearchContext } from '../App';
+import { sortList } from '../components/SortPopup';
 
 
 function Home() {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const {categoryId, sort, currentPage} = useSelector(state => state.filter);
+	const isSearch = useRef(false);
+	const isMounted = useRef(false);
+	const { categoryId, sort, currentPage } = useSelector(state => state.filter);
 
 	const { searchValue } = useContext(SearchContext);
 	const [items, setItems] = useState([]);
@@ -39,9 +45,9 @@ function Home() {
 
 	const onChangePage = (number) => {
 		dispatch(setCurrentPage(number))
-	}
+	};
 
-	useEffect(() => {
+	const fetchPizzas = () => {
 		setIsLoadind(true);
 
 		const category = categoryId > 0 ? `category=${categoryId}` : '';
@@ -54,16 +60,48 @@ function Home() {
 				setItems(response.data);
 				setIsLoadind(false);
 			});
+	}
+
+	useEffect(() => {
+		if (window.location.search) {
+			const params = qs.parse(window.location.search.substring(1));
+
+			const sort = sortList.find(obj => obj.sortProperty === params.sortProperty);
+			dispatch(
+				setFilters({
+					...params,
+					sort,
+				})
+			);
+			isSearch.current = true;
+		}
+	}, []);
+
+	useEffect(() => {
+		if (!isSearch.current) {
+			fetchPizzas();
+		}
+		isSearch.current = false;
 		window.scrollTo(0, 0);
 	}, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-	
+	useEffect(() => {
+		if (isMounted.current) {
+			const queryString = qs.stringify({
+				sortProperty: sort.sortProperty,
+				categoryId,
+				currentPage,
+			});
+			navigate(`?${queryString}`);
+		}
+		isMounted.current = true;
+	}, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
 	return (
 		<div className="container">
 			<div className="content__top">
 				<Categories value={categoryId} onChangeCategory={onChangeCategory} />
-				<SortPopup  />
+				<SortPopup />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			<div className="content__items">
