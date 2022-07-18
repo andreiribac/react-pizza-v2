@@ -1,5 +1,5 @@
 // Вначале формируем исходные данные
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	categoryId: 0,
@@ -36,7 +36,6 @@ const filterSlice = createSlice({
 			state.categoryId = Number(action.payload.categoryId);
 		},
 	}
-	// TODO #15 go!
 });
 
 export const { setCategoryId, setSort, setCurrentPage, setFilters } = filterSlice.actions;
