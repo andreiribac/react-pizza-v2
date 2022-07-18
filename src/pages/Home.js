@@ -2,19 +2,19 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 import { Categories, SortPopup, Skeleton, PizzaBlock, Pagination } from '../components';
 import { SearchContext } from '../App';
 
 
 function Home() {
 	const dispatch = useDispatch();
-	const {categoryId, sort} = useSelector(state => state.filter);
+	const {categoryId, sort, currentPage} = useSelector(state => state.filter);
 
 	const { searchValue } = useContext(SearchContext);
 	const [items, setItems] = useState([]);
 	const [isLoadind, setIsLoadind] = useState(true);
-	const [currentPage, setCurrentPage] = useState(1);
+	// const [currentPage, setCurrentPage] = useState(1);
 	// const [sortType, setSortType] = useState({ name: 'популярности', sortProperty: 'rating' });
 
 	const skeletons = ([... new Array(10)].map((_, index) => <Skeleton key={index} />));
@@ -35,6 +35,10 @@ function Home() {
 
 	const onChangeCategory = (id) => {
 		dispatch(setCategoryId(id));
+	};
+
+	const onChangePage = (number) => {
+		dispatch(setCurrentPage(number))
 	}
 
 	useEffect(() => {
@@ -45,15 +49,6 @@ function Home() {
 		const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
 		const search = searchValue ? `&search=${searchValue}` : '';
 
-		// fetch(
-		// 	`https://62cd50e9066bd2b6992348cd.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-		// )
-		// 	.then(res => res.json())
-		// 	.then(arr => {
-		// 		setItems(arr);
-		// 		setIsLoadind(false);
-		// 	});
-		// window.scrollTo(0, 0);
 		axios.get(`https://62cd50e9066bd2b6992348cd.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
 			.then(response => {
 				setItems(response.data);
@@ -76,7 +71,7 @@ function Home() {
 					isLoadind ? skeletons : pizzas
 				}
 			</div>
-			<Pagination onChangePage={number => setCurrentPage(number)} />
+			<Pagination currentPage={currentPage} onChangePage={onChangePage} />
 		</div>
 	)
 }
