@@ -6,3 +6,5 @@ export { default as Skeleton } from './PizzaBlock/Skeleton';
 export { default as NotFoundBlock } from './NotFoundBlock';
 export { default as Search } from './Search';
 export { default as Pagination } from './Pagination';
+export { default as CartItem } from './CartItem';
+export { default as CartEmpty } from './CartItem/CartEmpty';
