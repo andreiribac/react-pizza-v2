@@ -48,7 +48,7 @@ function Cart() {
                   )
                 })
               }
-              {/* TODO  #16 46.14*/}
+              {/* TODO  #17*/}
             </div>
             <div className="cart__bottom">
               <div className="cart__bottom-details">

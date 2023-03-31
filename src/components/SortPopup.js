@@ -26,7 +26,8 @@ function SortPopup() {
 
 	useEffect(() => {
 		const handleClickOutside = (event) => {
-			if (!event.path.includes(sortRef.current)) {
+			const path = event.path || (event.composedPath && event.composedPath());
+			if (!path.includes(sortRef.current)) {
 				setOpen(false);
 			}
 		}
